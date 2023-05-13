@@ -6,6 +6,12 @@ class Order(models.Model):
 
     def __str__(self):
         return f'order {self.date}'
+    
+    def get_total(self):
+        total = 0
+        for item in self.order_items.all():
+            total += item.get_item_price()
+        return total
 
 
 class OrderItem(models.Model):
@@ -18,3 +24,5 @@ class OrderItem(models.Model):
     
     def __str__(self) -> str:
         return f'{self.medicine.name} in order'
+    
+#Order.objects.get(id=2).order_items.all().first().price

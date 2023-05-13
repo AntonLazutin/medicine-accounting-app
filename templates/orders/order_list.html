@@ -2,7 +2,32 @@
 
 
 {% block content %}
-    <div class="medicine_list">
-        <h1>тут будут заказы</h1>
+    <div class="medicine_list" style="width: 1000px; margin: auto;">
+        <table class="table table-warning"> 
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Дата заказа</th>
+                  <th scope="col">Стоимость</th>
+                  <th scope="col">Подробнее</th>
+                </tr>
+              </thead>
+            {% for object in object_list %}
+            <tr>
+                <td>
+                    {{object.id}}
+                </td>   
+                <td>
+                    {{object}}
+                </td>
+                <td>
+                    {{object.get_total}}
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="{% url 'order_detail' object.id %}">Подробнее</a>
+                </td>
+            </tr>
+            {% endfor%}
+        </table>
     </div>
 {% endblock content%}

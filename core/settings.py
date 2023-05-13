@@ -38,11 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #3rd party
-    'django_bootstrap5',
+    'bootstrap5',
     #local
+    'home',
     'medicine',
     'supplies',
     'orders',
+    'pharmacy',
 ]
 
 MIDDLEWARE = [
