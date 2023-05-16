@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+
+
+{% block content %}
+    <div class="order_detail" style="width: 500px; margin: auto">
+        <form id="order-form" method="post">
+            {% csrf_token %}
+            {{formset.management_form}}
+            {% for item_form in formset %}
+                <div class="orderitem-form">
+                    {{item_form.as_p}}
+                </div>
+            {% endfor %}
+            <div id="buttons" style="display: flex; flex-direction: row; justify-content: center; gap: 20px; margin-top:20px;">
+                <button type="submit" class="btn btn-danger">
+                Создать заказ
+                </button>
+                <button type="button" class="btn btn-success" id="add">
+                    Добавить товар
+                </button>
+            <div>
+        </form>
+    </div>
+{% endblock content%}
+
+
+{% block script %}
+    <script src="{% static 'js/order.js'%}"></script>
+{% endblock script %}

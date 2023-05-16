@@ -17,7 +17,11 @@ class Order(models.Model):
 class OrderItem(models.Model):
     medicine = models.ForeignKey('medicine.Medicine', related_name='order_items', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
-    order = models.ForeignKey(Order, related_name='order_items', on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, 
+                              related_name='order_items', 
+                              on_delete=models.CASCADE,
+                              null=True,
+                              blank=True)
 
     def get_item_price(self):
         return self.medicine.price * self.quantity
@@ -25,4 +29,3 @@ class OrderItem(models.Model):
     def __str__(self) -> str:
         return f'{self.medicine.name} in order'
     
-#Order.objects.get(id=2).order_items.all().first().price

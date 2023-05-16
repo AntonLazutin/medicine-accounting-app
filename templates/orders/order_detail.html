@@ -2,7 +2,39 @@
 
 
 {% block content %}
-    <div class="order_detail">
+    <div class="order_detail" style="width: 1000px; margin: auto;">
+        Товары в заказе
         {{object}}
+
+        <table class="table table-warning"> 
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Название</th>
+                  <th scope="col">Количество</th>
+                  <th scope="col">Стомость</th>
+                  <th scope="col">Полная стоимость</th>
+                </tr>
+              </thead>
+            {% for item in object.order_items.all %}
+            <tr>
+                <td>
+                    {{item.medicine.id}}
+                </td>    
+                <td>
+                    {{item.medicine.name}}
+                </td>
+                <td>
+                    {{item.quantity}}
+                </td>
+                <td>
+                    {{item.medicine.price}}
+                </td>
+                <td>
+                    {{item.get_item_price}}
+                </td>
+            </tr>
+            {% endfor%}
+        </table>
     </div>
 {% endblock content%}

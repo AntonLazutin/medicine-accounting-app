@@ -10,13 +10,14 @@
                   <th scope="col">Дата заказа</th>
                   <th scope="col">Стоимость</th>
                   <th scope="col">Подробнее</th>
+                  <th scope="col">Удалить</th>
                 </tr>
               </thead>
             {% for object in object_list %}
             <tr>
                 <td>
                     {{object.id}}
-                </td>   
+                </td>    
                 <td>
                     {{object}}
                 </td>
@@ -26,8 +27,18 @@
                 <td>
                     <a class="btn btn-primary" href="{% url 'order_detail' object.id %}">Подробнее</a>
                 </td>
+                <td>
+                    <form method="POST" action="{% url 'order_delete' object.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit" value="DELETE">
+                            Удалить
+                        </button>
+                     </form>
+                    {% comment %} <a class="btn btn-danger" href="{% url 'order_delete' object.id %}">Удалить</a> {% endcomment %}
+                </td>
             </tr>
             {% endfor%}
         </table>
+        <a class="btn btn-success" style="float: right;" href="{% url 'order_create' %}">Новый заказ</a>
     </div>
 {% endblock content%}

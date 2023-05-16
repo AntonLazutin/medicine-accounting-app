@@ -21,9 +21,9 @@
             <p>{{object.description}}</p>
             <p>{{object.amount}}</p>
             {% if object.amount == 0 %}
-                <h3 style="color: red">Нет в наличии</h3>
+                <p style="color: red">Нет в наличии</p>
             {% else  %}
-                <h3 style="color: green;">В наличии</h3>
+                <p style="color: green;">В наличии</p>
             {% endif %}
         </div>
         {% endfor %}
