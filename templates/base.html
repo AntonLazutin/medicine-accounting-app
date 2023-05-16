@@ -17,11 +17,13 @@
                 <li class="nav-item"><a href="{% url 'order_list' %}" class="nav-link">Заказы</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Поставки</a></li>
                 {%if user.is_authenticated%}
-                    <li class="nav-item"><a href="" class="nav-link">{{user.username}}</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">Выйти</a></li>
+                    <li class="nav-item"><a  class="nav-link">{{user.username}}</a></li>
+                    <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Выйти</a></li>
                     {% if user.is_staff %}
                         <li class="nav-item"><a href="{% url 'admin:index' %}" class="nav-link">Админ панель</a></li>
                     {% endif %}
+                {% else %}
+                    <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Войти</a></li>
                 {% endif %}
             </ul>
         </header>

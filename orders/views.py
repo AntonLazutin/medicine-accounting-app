@@ -4,9 +4,8 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 
-from .models import Order, OrderItem
-from .forms import OrderForm, OrderItemForm, OrderItemFormSet
-# from ..medicine.models import Medicine
+from .models import Order
+from .forms import OrderForm, OrderItemFormSet
 from django.db import transaction
 
 class ListOrder(ListView):
@@ -15,26 +14,21 @@ class ListOrder(ListView):
 
 
 class CreateOrder(CreateView):
+
+    #TODO: ЗАПРЕТИТЬ ОДИНАКОВЫЕ ЛЕКАРСТВА В ЗАКАЗЕ
+
     model = Order
     form_class = OrderForm
     success_url = reverse_lazy("order_list")
     template_name = 'orders/order_create.html'
 
-    # def get(self, request, *args, **kwargs):
-    #     OrderItemFormSet = inlineformset_factory(Order, OrderItem, exclude=('id', 'order',))
-    #     new_order = Order.objects.create()
-    #     formset = OrderItemFormSet(instance=new_order)
-
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        # new_order = Order()
-        # formset = OrderItemFormSet(instance=new_order)
         if self.request.POST:
             context['formset'] = OrderItemFormSet(self.request.POST)
         else: 
             context['formset'] = OrderItemFormSet()
         return context
-
 
 
     def form_valid(self, form):
@@ -44,7 +38,7 @@ class CreateOrder(CreateView):
             form.instance.created_by = self.request.user
             form.instance.updated_by = self.request.user
             self.object = form.save()
-        if form.is_valid():
+        if form.is_valid() and formset.is_valid():
             formset.instance = self.object
             formset.save()
 

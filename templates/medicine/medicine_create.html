@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+
+{% block content %}
+    <div class="medicine_form" style="width: 500px; margin: auto">
+        <form method="post">
+            {% csrf_token %}
+            {%bootstrap_form form%}
+            <button type="submit" class="btn btn-success" style="">Добавить</button>
+        </form>
+    </div>
+{% endblock content%}
