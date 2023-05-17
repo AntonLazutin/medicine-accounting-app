@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 
 
@@ -12,6 +13,11 @@ class Order(models.Model):
         for item in self.order_items.all():
             total += item.get_item_price()
         return total
+    
+    def update_amount(self):
+        for item in self.order_items.all():
+            print("you are here")
+            item.medicine.purchased(item.quantity)
 
 
 class OrderItem(models.Model):

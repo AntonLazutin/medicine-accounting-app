@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{object.name}}</h3>
+            <h6 class="card-subtitle">{{object.category}}</h6>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-6">
+                    <div class="white-box text-center"><img src="https://cdn-icons-png.flaticon.com/512/1106/1106992.png" style="width:430px;" class="img-responsive"></div>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-6">
+                    <h4 class="box-title mt-5">Описание лекарства</h4>
+                    <p>{{object.description}}</p>
+                    <h2 class="mt-5">
+                        ${{object.price}}
+                    </h2>
+                    <a class="btn btn-success btn-rounded" href="{% url 'medicine_update' object.id %}">Обновить данные</a>
+                    <form method="POST" action="{% url 'medicine_delete' object.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit" value="DELETE" onclick="return confirm('Удалить {{object.name}}?');">
+                            Удалить
+                        </button>
+                     </form>
+                    {% comment %} <a ... onclick="return confirm('Are you sure you want to delete this?')">Delete</a> {% endcomment %}
+                    <h3 class="box-title mt-5">В наличии в аптеке:</h3>
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-check text-success"></i>Аптека по адресу: г. Минск, ул. Веры Хоружей, д.19</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content%}
+{% comment %}  {% endcomment %}

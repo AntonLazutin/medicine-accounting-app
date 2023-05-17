@@ -9,7 +9,24 @@
     ">
 
         {% for object in object_list%}
-        <div class="medicine-detail" style="
+        <div class="card border-success mb-3" style="max-width: 18rem;">
+            {% if object.amount == 0 %}
+                <div class="card-header bg-transparent border-danger">Нет в наличии</div>
+            {% else  %}
+                <div class="card-header bg-transparent border-success">
+                    В наличии {{object.amount}}
+                </div>
+            {% endif %} 
+            <div class="card-body text-success">
+              <h5 class="card-title">{{object.name}}</h5>
+              <p class="card-text">{{object.description}}</p>
+            </div>
+            <div class="card-footer bg-transparent border-success">
+                <a class="btn btn-primary" href="{% url 'medicine_detail' object.id%}">Подробнее</a>
+            </div>
+          </div>
+          
+        {% comment %} <div class="medicine-detail" style="
             border: 1px solid black;
             border-radius: 25px;
             margin: 10px;
@@ -25,7 +42,7 @@
             {% else  %}
                 <p style="color: green;">В наличии</p>
             {% endif %}
-        </div>
+        </div> {% endcomment %}
         {% endfor %}
     </div>
 {% endblock content%}

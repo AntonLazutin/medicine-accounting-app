@@ -3,8 +3,7 @@
 
 {% block content %}
     <div class="order_detail" style="width: 1000px; margin: auto;">
-        Товары в заказе
-        {{object}}
+        <h3>Товары в заказе от {{object.date}}</h3>
 
         <table class="table table-warning"> 
             <thead>
@@ -36,5 +35,7 @@
             </tr>
             {% endfor%}
         </table>
+
+        <h3 style="float: right;">Итоговая стоимость: {{object.get_total}}</h3>
     </div>
 {% endblock content%}

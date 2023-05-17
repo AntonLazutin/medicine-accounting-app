@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Добро пожаловать в систему</h1>
+    <div style="display: flex; flex-direction: column; text-align: center;">
+        {% if user.is_authenticated%}
+        <h1 style="">Добро пожаловать в систему, {{user.username}}</h1>
+            {% if user.is_staff %}
+                <a class="btn btn-danger" style="width: fit-content; margin: auto;" href="{% url 'dump' %}">
+                    Скачать дамп базы данных
+                </a>
+            {% endif %}
+        {% else %}
+        <h1>Войдите в аккаунт!</h1>
+        {% endif %}
+    </div>
 {% endblock content %}

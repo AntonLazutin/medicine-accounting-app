@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
@@ -28,4 +29,11 @@ class LogoutPageView(View):
 
     def get(self, *args, **kwargs):
         logout(self.request)
+        return redirect((reverse_lazy('home')))
+    
+
+class DatabaseDump(View):
+
+    def get(self, *args, **kwargs):
+        os.system('python manage.py dumpdata > dump.json')
         return redirect((reverse_lazy('home')))

@@ -41,6 +41,7 @@ class CreateOrder(CreateView):
         if form.is_valid() and formset.is_valid():
             formset.instance = self.object
             formset.save()
+            self.object.update_amount()
 
         return super(CreateOrder, self).form_valid(form)
         

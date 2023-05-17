@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ValidationError
 
 
 class Category(models.Model):
@@ -14,7 +15,6 @@ class Category(models.Model):
 class Medicine(models.Model):
     name = models.CharField(max_length=30,unique=True)
     price = models.FloatField()
-    #supplier
     description = models.CharField(max_length=200)
     amount = models.IntegerField()
     category = models.ForeignKey(Category, related_name='medicines', on_delete=models.CASCADE)
@@ -25,6 +25,9 @@ class Medicine(models.Model):
     def in_stock(self):
         return self.amount > 0
     
-    def purchased(self):
+    def purchased(self, quantity):
         if self.in_stock():
-            self.amount -= 1
+            self.amount -= quantity
+            self.save()
+        else:
+            raise ValidationError
